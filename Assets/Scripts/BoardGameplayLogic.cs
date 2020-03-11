@@ -704,7 +704,10 @@ public class BoardGameplayLogic : MonoBehaviour
         }
 
         //Send progress to GameManager
-        gameManager.SetLastClearedLevel(currentLevel);
+        if(gameManager.GetLastClearedLevel() < currentLevel)
+        {
+            gameManager.SetLastClearedLevel(currentLevel);
+        }
 
         yield return new WaitForSeconds(4.0f);
 
