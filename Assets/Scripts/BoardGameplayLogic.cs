@@ -124,6 +124,20 @@ public class BoardGameplayLogic : MonoBehaviour
                 break;
             case BoardState.WaitForInput:
 
+                //Check if the board needs a reshuffle. Checks only once per turn.
+                if (checkBoard)
+                {
+                    if (CheckIfBoardNeedsReshuffle())
+                    {
+                        startReshuffle = true;
+                        state = BoardState.Reshuffle;
+                    }
+                    else
+                    {
+                        checkBoard = false;
+                    }
+                }
+
                 //Spinning and Scaling effect on flowers when selected.
                 for (int i = 0; i < width; i++)
                 {
@@ -259,20 +273,6 @@ public class BoardGameplayLogic : MonoBehaviour
                     }
                 }
 #endif
-
-                //Check if the board needs a reshuffle. Checks only once per turn.
-                if (checkBoard)
-                {
-                    if (CheckIfBoardNeedsReshuffle())
-                    {
-                        startReshuffle = true;
-                        state = BoardState.Reshuffle;
-                    }
-                    else
-                    {
-                        checkBoard = false;
-                    }
-                }
 
                 break;
             case BoardState.DestroyObjects:
